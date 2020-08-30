@@ -23,6 +23,7 @@ namespace ProAgil.WebAPI
             services.AddControllers();
              services.AddDbContext<DataContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors();                        
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -33,7 +34,7 @@ namespace ProAgil.WebAPI
             }
 
            // app.UseHttpsRedirection();
-
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthorization();

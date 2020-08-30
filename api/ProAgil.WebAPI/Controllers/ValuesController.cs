@@ -13,10 +13,10 @@ namespace ProAgil.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ValuesController : ControllerBase
     {
         private readonly DataContext _datacontext;
-        public WeatherForecastController(DataContext datacontext)
+        public ValuesController(DataContext datacontext)
         {
             _datacontext = datacontext;
         }
