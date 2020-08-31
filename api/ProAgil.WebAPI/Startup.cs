@@ -35,8 +35,9 @@ namespace ProAgil.WebAPI
 
            // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseRouting();
+            app.UseStaticFiles();
 
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
