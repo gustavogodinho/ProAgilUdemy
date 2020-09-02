@@ -8,13 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EventosComponent implements OnInit {
 
-  _filtroLista: string;
+  FiltroLista: string;
 
   get filtroLista(): string {
-    return this._filtroLista;
+    return this.FiltroLista;
   }
   set filtroLista(value: string) {
-    this._filtroLista = value;
+    this.FiltroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
 
