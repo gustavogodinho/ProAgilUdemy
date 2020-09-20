@@ -1,4 +1,4 @@
-namespace ProAgil.WebAPI.Model
+namespace ProAgil.Domain.Model
 {
     public class Evento
     {
