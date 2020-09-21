@@ -27,11 +27,19 @@ namespace ProAgil.WebAPI
             services.AddDbContext<ProAgilContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
-            services.AddCors();                        
+            services.AddCors();                
+            services.AddSwaggerGen();       
+             
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
