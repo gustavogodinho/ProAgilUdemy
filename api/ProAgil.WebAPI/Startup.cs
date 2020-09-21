@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProAgil.WebAPI.Data;
+using ProAgil.Repository.Context;
+using ProAgil.Repository.Interface;
+using ProAgil.Repository;
 
 namespace ProAgil.WebAPI
 {
@@ -21,8 +23,10 @@ namespace ProAgil.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-             services.AddDbContext<DataContext>(options =>
+            
+            services.AddDbContext<ProAgilContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IProAgilRepository, ProAgilRepository>();
             services.AddCors();                        
         }
 
