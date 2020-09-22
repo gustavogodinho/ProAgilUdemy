@@ -1,12 +1,15 @@
  
- create table Eventos
+ create table Evento
     (
-		 EventoId int,
-         Local varchar(200), 
-         DataEvento varchar(200), 
-         Tema varchar(200),
-		 QtdPessoas int,
-         Lote varchar(200),
-         ImagemURL varchar(200)
+		Id int  PRIMARY KEY IDENTITY (1, 1),
+      Local varchar(200), 
+      DataEvento DATETIME, 
+      Tema varchar(200),
+		QtdPessoas int,
+      Lote varchar(200),
+      ImagemURL varchar(200),
+      Telefone varchar(20),
+      Email varchar(100)
+
     )
 

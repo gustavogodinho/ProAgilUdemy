@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using ProAgil.Repository.Context;
+using ProAgil.Domain.Model;
+using ProAgil.Repository.Interface;
 
 namespace ProAgil.WebAPI.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class ValuesController : ControllerBase
+    [ApiController]
+    public class PalestranteController : ControllerBase
     {
-        private readonly ProAgilContext _datacontext;
-        public ValuesController(ProAgilContext datacontext)
-        {
-            _datacontext = datacontext;
-        }
+        private readonly IProAgilRepository _repository;
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        public PalestranteController(IProAgilRepository repository)
+        {
+            _repository = repository;
+        }
+  
+       [HttpGet("GetById/{PalestranteId}")]
+       public async Task<IActionResult> GetById(int palestranteId)
         {
             try
             {
-                var r = await _datacontext.Evento.ToListAsync(); 
+                var r = await _repository.GetAllPalestrantesAsyncById(palestranteId, true);
                 return Ok(r);    
             }
             catch (System.Exception)
@@ -34,12 +31,12 @@ namespace ProAgil.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult>  Get(int id)
+        [HttpGet("ByName/{nome}")]
+        public async Task<IActionResult> GetById(string nome)
         {
             try
             {
-                var r = await _datacontext.Evento.FirstOrDefaultAsync(x => x.Id == id);
+                var r = await _repository.GetAllPalestrantesAsyncByName(nome, true);
                 return Ok(r);    
             }
             catch (System.Exception)
