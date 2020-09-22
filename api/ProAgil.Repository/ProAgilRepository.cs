@@ -13,6 +13,7 @@ namespace ProAgil.Repository
         public ProAgilRepository(ProAgilContext context)
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;  // não bloquear a sessao
 
         }
 
@@ -50,7 +51,8 @@ namespace ProAgil.Repository
                  .ThenInclude(p => p.Palestrante);
             }
 
-            query = query.OrderByDescending(c => c.DataEvento);
+            query = query.AsNoTracking()  // nao bloquear
+                    .OrderByDescending(c => c.DataEvento);
             return await query.ToArrayAsync();
         }
 
