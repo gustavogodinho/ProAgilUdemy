@@ -15,7 +15,9 @@
             <th>
                 <button class="btn btn-outline-primary"
                 (click)="alterarImagem()">
-                    Mostrar Imagem
+                <i class="{{mostrarImagem ? 'fa fa-eye-slash' : 'fa fa-eye'}}"></i>
+                {{mostrarImagem ? 'Ocultar' : 'Mostrar'}}
+                 Imagem
                 </button>
             </th>
             <th>#</th>
@@ -27,28 +29,35 @@
             <th>Opções</th>
         </tr>
     </thead>
-    <tbody *ngIf=" eventos && eventos.length">
-        <tr *ngFor="let item of eventosFiltrados">
+    <tbody *ngIf="eventos && eventos.length">
+        <tr *ngFor="let evento  of eventosFiltrados">
             <td>
                <img *ngIf = "mostrarImagem"
-               src="http://localhost:5000/img/{{item.imagemURL}}"
+               src="http://localhost:5000/img/{{evento.imagemURL}}"
                [style.width.px]="imagemAltura"
                [style.margin.px]="imagemMargem"
                >
             </td>
-            <td>{{item.eventoId}}</td>
-            <td>{{item.tema}}</td>
-            <td>{{item.local}}</td>
-            <td>{{item.dataEvento}}</td>
-            <td>{{item.qtdPessoas}}</td>
-            <td>{{item.lote | uppercase}}</td>
+            <td>{{evento .id}}</td>
+            <td>{{evento .tema}}</td>
+            <td>{{evento .local}}</td>
+            <td>{{evento .dataEvento}}</td>
+            <td>{{evento .qtdPessoas}}</td>
+            <td>
+                <div *ngIf="!evento .lotes.length"> 
+                    Não Informado
+                </div>
+                <div *ngIf="evento .lotes.length">
+                    {{evento.lotes[0].nome | uppercase}}
+                </div>
+            </td>
             <td>
                 <button class="btn btn-success"></button>
                 <button class="btn btn-danger"></button>
             </td>
         </tr>
     </tbody>
-    <tfoot *ngIf = "!eventos.length">
+    <tfoot *ngIf="!eventos">
         <tr>
             <td colspan="7" class="text-center">
                 <h4>
