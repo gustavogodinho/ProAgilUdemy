@@ -29,7 +29,7 @@ namespace ProAgil.WebAPI
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
 
             services.AddControllers();
-            
+            services.AddControllers().AddNewtonsoftJson();
                                  
             services.AddSwaggerGen();   
             services.AddCors();     
