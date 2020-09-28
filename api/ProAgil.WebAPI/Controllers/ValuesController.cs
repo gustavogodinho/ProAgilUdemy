@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ProAgil.WebAPI.Data;
-using ProAgil.WebAPI.Model;
+using ProAgil.Repository.Context;
 
 namespace ProAgil.WebAPI.Controllers
 {
@@ -15,8 +14,8 @@ namespace ProAgil.WebAPI.Controllers
     [Route("[controller]")]
     public class ValuesController : ControllerBase
     {
-        private readonly DataContext _datacontext;
-        public ValuesController(DataContext datacontext)
+        private readonly ProAgilContext _datacontext;
+        public ValuesController(ProAgilContext datacontext)
         {
             _datacontext = datacontext;
         }
@@ -26,7 +25,7 @@ namespace ProAgil.WebAPI.Controllers
         {
             try
             {
-                var r = await _datacontext.Eventos.ToListAsync(); 
+                var r = await _datacontext.Evento.ToListAsync(); 
                 return Ok(r);    
             }
             catch (System.Exception)
@@ -40,7 +39,7 @@ namespace ProAgil.WebAPI.Controllers
         {
             try
             {
-                var r = await _datacontext.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
+                var r = await _datacontext.Evento.FirstOrDefaultAsync(x => x.Id == id);
                 return Ok(r);    
             }
             catch (System.Exception)

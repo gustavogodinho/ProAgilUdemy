@@ -1,0 +1,8 @@
+CREATE TABLE RedeSocial
+(
+    Id INT  PRIMARY KEY IDENTITY (1, 1),
+    Nome VARCHAR(200),
+    URL VARCHAR(200),
+    EventoId INT FOREIGN KEY REFERENCES Eventos(Id),
+    PalestranteId INT FOREIGN KEY REFERENCES Palestrante(Id)
+)
