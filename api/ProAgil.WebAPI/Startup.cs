@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ProAgil.Repository.Context;
 using ProAgil.Repository.Interface;
 using ProAgil.Repository;
+using AutoMapper;
 
 namespace ProAgil.WebAPI
 {
@@ -22,13 +23,18 @@ namespace ProAgil.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            
             services.AddDbContext<ProAgilContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
-            services.AddCors();                
-            services.AddSwaggerGen();       
+
+            services.AddControllers();
+            
+                                 
+            services.AddSwaggerGen();   
+            services.AddCors();     
+          
+            services.AddAutoMapper(typeof(Startup));
              
         }
 
