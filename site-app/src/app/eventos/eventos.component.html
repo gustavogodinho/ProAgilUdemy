@@ -1,3 +1,4 @@
+<app-titulo [titulo]="titulo"></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto">
     <div class="form-group mb-2">
@@ -61,7 +62,7 @@
       </td>
     </tr>
   </tbody>
-  <tfoot *ngIf="!eventos.length">
+  <tfoot *ngIf="!eventos">
     <tr>
       <td colspan="7" class="text-center">
         <h4>
@@ -205,7 +206,7 @@
       </div>
       <div class="modal-footer btn-group d-flex">
         <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-          CENCELAR
+          CANCELAR
         </button>
         <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
           DELETAR
