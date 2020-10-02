@@ -22,7 +22,10 @@ export class EventosComponent implements OnInit {
 
   evento: Evento;
   modoSalvar = 'post';
+  file: File;
+  fileNameToUpdate: string;
 
+  dataAtual: string;
   imagemLargura = 50;
   imagemMargem = 2;
   mostrarImagem = false;
@@ -53,6 +56,11 @@ export class EventosComponent implements OnInit {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.evento = evento;
+    this.evento = Object.assign({}, evento);
+    this.fileNameToUpdate = evento.imagemURL.toString();
+    this.evento.imagemURL = '';
+    this.registerForm.patchValue(this.evento);
+    this.evento = evento;
     this.registerForm.patchValue(evento);
   }
 
@@ -82,7 +90,7 @@ export class EventosComponent implements OnInit {
 
   openModal(template: any) {
     this.registerForm.reset();
-    this.registerForm.get('dataEvento').setValue(new Date());
+    //this.registerForm.get('dataEvento').setValue(new Date());
     template.show();
   }
 
@@ -118,6 +126,9 @@ export class EventosComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.evento = Object.assign({}, this.registerForm.value);
+
+        this.uploadImagem();
+
         this.eventoService.postEvento(this.evento).subscribe(
           (novoEvento: Evento) => {
             template.hide();
@@ -130,11 +141,14 @@ export class EventosComponent implements OnInit {
         );
       } else {
         this.evento = Object.assign({ id: this.evento.id }, this.registerForm.value);
+        this.uploadImagem();
+
         this.eventoService.putEvento(this.evento).subscribe(
           () => {
             template.hide();
             this.getEventos();
             this.toastr.success('Editado com Sucesso!');
+
           }, error => {
             this.toastr.error(`Erro ao Editar: ${error}`);
             console.log(error);
@@ -154,6 +168,39 @@ export class EventosComponent implements OnInit {
         this.toastr.error(`Erro ao tentar Carregar eventos: ${error}`);
         console.log(error);
       });
+  }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+      console.log(this.file);
+    }
+  }
+
+  uploadImagem() {
+    if (this.modoSalvar === 'post') {
+      const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+      this.evento.imagemURL = nomeArquivo[2];
+
+      this.eventoService.postUpload(this.file, nomeArquivo[2])
+        .subscribe(
+          () =>  {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getEventos();
+          }
+        );
+    } else {
+      this.evento.imagemURL = this.fileNameToUpdate;
+      this.eventoService.postUpload(this.file, this.fileNameToUpdate)
+        .subscribe(
+          () =>  {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getEventos();
+          }
+        );
+    }
   }
 
 }
