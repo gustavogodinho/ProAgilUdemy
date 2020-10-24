@@ -135,5 +135,15 @@ namespace ProAgil.Repository
 
 #endregion
 
+
+        public async Task<int> CountControle()
+        {
+            IQueryable<Controle> query =  _context.Controles;
+
+            var r = query.CountAsync();
+
+            return await r;
+        }
+
     }
 }

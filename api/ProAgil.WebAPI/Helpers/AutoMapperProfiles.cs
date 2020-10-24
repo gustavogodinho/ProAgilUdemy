@@ -27,6 +27,8 @@ namespace ProAgil.WebAPI.Helpers
 
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserLoginDto>().ReverseMap();
+
+            CreateMap<Controle, ControleCountDto>().ReverseMap();
         }
     }
 }
