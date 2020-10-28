@@ -5,20 +5,24 @@ namespace ProAgil.Repository.Interface
 {
     public interface IProAgilRepository
     {
-         void Add<T>(T entity) where T : class;
-         void Update<T>(T entity) where T : class;
-         void Delete<T>(T entity) where T : class;
-         Task<bool> SaveChangesAsync();
+        //GERAL
+        void Add<T>(T entity) where T : class;
+        void Update<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
+        void DeleteRange<T>(T[] entity) where T : class;
 
-         Task<Evento[]> GetAllEventoAsyncByTema(string tema, bool incluirPalestrantes);
-         Task<Evento[]> GetAllEventoAsync(bool incluirPalestrantes = false);
-         Task<Evento> GetAllEventoAsyncById(int eventoId, bool incluirPalestrantes);
+        Task<bool> SaveChangesAsync();
 
-         Task<Palestrante[]> GetAllPalestrantesAsyncByName(string nome, bool incluirEvento);
-         Task<Palestrante> GetAllPalestrantesAsyncById(int palestranteId, bool incluirEvento);
+        //EVENTOS
+        Task<Evento[]> GetAllEventoAsyncByTema(string tema, bool includePalestrantes);
+        Task<Evento[]> GetAllEventoAsync(bool includePalestrantes);
+        Task<Evento> GetEventoAsyncById(int EventoId, bool includePalestrantes);
 
-         Task<int> CountControle();
+        //PALESTRANTE
+        Task<Palestrante[]> GetAllPalestrantesAsyncByName(string name, bool includeEventos);
+        Task<Palestrante> GetPalestranteAsync(int PalestranteId, bool includeEventos);
 
-         
+        Task<int> CountControle();
+
     }
 }

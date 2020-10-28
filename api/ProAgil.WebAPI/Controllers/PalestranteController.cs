@@ -22,7 +22,7 @@ namespace ProAgil.WebAPI.Controllers
         {
             try
             {
-                var r = await _repository.GetAllPalestrantesAsyncById(palestranteId, true);
+                var r = await _repository.GetPalestranteAsync(palestranteId, true);
                 return Ok(r);    
             }
             catch (System.Exception)

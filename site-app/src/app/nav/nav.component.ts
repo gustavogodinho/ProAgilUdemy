@@ -10,10 +10,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit {
 
-  constructor(public authService: AuthService, public router: Router, private toastr: ToastrService) { }
+  constructor(public authService: AuthService
+    , public router: Router
+    , private toastr: ToastrService) { }
 
   ngOnInit() {
   }
+
+  showMenu() {
+    return this.router.url !== '/user/login';
+  }
+
   loggedIn() {
     return this.authService.loggedIn();
   }
@@ -28,4 +35,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/user/login']);
   }
 
+  userName() {
+    return sessionStorage.getItem('username');
+  }
 }
